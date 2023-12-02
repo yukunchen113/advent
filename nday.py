@@ -20,7 +20,9 @@ def move_files(day):
         if os.path.exists(file):
             basepath = os.path.join(ARCHIVE_FOLDER, f"day_{day-1}")
             os.makedirs(basepath,exist_ok=True)
-            os.rename(file, os.path.join(basepath, file))
+            dest= os.path.join(basepath, file)
+            if not os.path.exists(dest):
+                os.rename(file, dest)
 
 
 def create_day_files(day):
@@ -53,6 +55,8 @@ def create_day_files(day):
 from collections import defaultdict
 import regex as re
 from pprint import pprint
+from functools import reduce
+import numpy as np
 
 def parse_input(data_file):
     with open(data_file) as f:
@@ -62,7 +66,6 @@ def parse_input(data_file):
 def main(data_file):
     data = parse_input(data_file)
 
-SHOW_MAIN = 0
 if __name__ == "__main__":
     tout = main('{tdata}')
     eout = 
