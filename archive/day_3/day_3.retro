@@ -1,0 +1,4 @@
+- could've used isdigit for part 1
+- could've used re.finditer("\d+", line) 
+	- see new_main
+- is there a better way to do the 2 for loops?

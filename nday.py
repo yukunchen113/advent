@@ -57,6 +57,7 @@ import regex as re
 from pprint import pprint
 from functools import reduce
 import numpy as np
+import library
 
 def parse_input(data_file):
     with open(data_file) as f:

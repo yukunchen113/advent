@@ -4,6 +4,7 @@ import regex as re
 from pprint import pprint
 from functools import reduce
 import numpy as np
+import library
 
 def parse_input(data_file):
     with open(data_file) as f:
@@ -14,9 +15,9 @@ def main(data_file):
     data = parse_input(data_file)
 
 if __name__ == "__main__":
-    tout = main('data_3.t')
+    tout = main('data_4.t')
     eout = 
     assert tout == eout, tout
     print("Test Success")
-    mout = main('data_3.m')
+    mout = main('data_4.m')
     print("main: ", mout)

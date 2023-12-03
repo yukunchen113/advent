@@ -33,8 +33,8 @@ def new_main(data_file):
     data = parse_input(data_file)
     out = 0
     for idx,line in enumerate(data,1):
-        nums = re.findall(r"(\d+) (blue|red|green)", line)
-        min_game = {"green":0,"red":0,"blue":0}
+        nums = re.findall(r"(\d+) (b|r|g)", line)
+        min_game = {"g":0,"r":0,"b":0}
         for num,color in nums:
             min_game[color] = max(int(num), min_game[color], 0)
         out+=functools.reduce(mul, min_game.values(), 1)
@@ -54,9 +54,9 @@ def np_main(data_file):
 
 SHOW_MAIN = 0
 if __name__ == "__main__":
-    tout = main('data_2.t')
+    tout = new_main('data_2.t')
     eout = 2286
     assert tout == eout, tout
     print("Test Success")
-    mout = main('data_2.m')
+    mout = new_main('data_2.m')
     print("main: ", mout)
