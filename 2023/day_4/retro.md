@@ -1,0 +1,2 @@
+- need to type faster, and think of edge cases smoothly
+- for the coding fast and immediate edge case recognition, try leetcoding more.
