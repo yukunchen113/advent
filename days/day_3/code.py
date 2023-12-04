@@ -4,7 +4,8 @@ import regex as re
 from pprint import pprint
 from functools import reduce
 import numpy as np
-import library
+from advent.tools.map import convert_to_complex
+from advent import mark
 
 def parse_input(data_file):
     with open(data_file) as f:
@@ -62,10 +63,27 @@ def new_main(data_file):
                     total += a*b
     return total
 
-if __name__ == "__main__":
-    tout = new_main('data_3.t')
-    eout = 467835
-    assert tout == eout, tout
-    print("Test Success")
-    mout = new_main('data_3.m')
-    print("main: ", mout)
+@mark.solution(4361)
+def new_main_2_pt1(data_file):
+    data = parse_input(data_file)
+    dcomp = convert_to_complex(data)
+    seen = []
+    for idx, line in enumerate(data):
+        for num in re.finditer("\d+",line):
+            coords = {complex(idx+i,j) for j in range(num.start()-1, num.end()+1) for i in [-1,0,1]}
+            if any(dcomp.get(coord, ".") not in [str(i) for i in range(10)] +["."] for coord in coords):
+                seen.append(int(num.group()))
+    return sum(seen)
+    
+@mark.solution(467835)
+def new_main_2(data_file):
+    data = parse_input(data_file)
+    dcomp = convert_to_complex(data)
+    seen = defaultdict(list)
+    for idx, line in enumerate(data):
+        for num in re.finditer("\d+",line):
+            coords = {complex(idx+i,j) for j in range(num.start()-1, num.end()+1) for i in [-1,0,1]}
+            for coord in coords:
+                if dcomp.get(coord, ".") == "*":
+                    seen[coord].append(int(num.group()))
+    return sum(i[0]*i[1] for i in seen.values() if len(i) == 2)

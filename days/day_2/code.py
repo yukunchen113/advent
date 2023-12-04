@@ -5,6 +5,7 @@ from pprint import pprint
 import functools
 from operator import mul
 import numpy as np
+from advent import mark
 
 
 def parse_input(data_file):
@@ -14,6 +15,7 @@ def parse_input(data_file):
 
 caps = {"red":12, "green":13, "blue":14}
 
+@mark.solution(test=2286)
 def main(data_file):
     data = parse_input(data_file)
     out = 0
@@ -51,12 +53,3 @@ def np_main(data_file):
         game = np.max(min_game.values(),axis=1)
         out+=np.prod(game)
     return out
-
-SHOW_MAIN = 0
-if __name__ == "__main__":
-    tout = new_main('data_2.t')
-    eout = 2286
-    assert tout == eout, tout
-    print("Test Success")
-    mout = new_main('data_2.m')
-    print("main: ", mout)
