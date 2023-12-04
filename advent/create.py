@@ -4,7 +4,7 @@ import sys
 import os
 import re
 
-DAYS_FOLDER = "days"
+DAYS_FOLDER = "2023"
 
 def get_latest_day():
     return int(re.findall("\d+", [i for i in sorted(os.listdir(DAYS_FOLDER))][-1])[-1])

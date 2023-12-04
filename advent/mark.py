@@ -6,7 +6,7 @@ from functools import wraps
 from typing import Any, Callable
 from collections import defaultdict
 import importlib
-from advent.create import getfilepaths
+from advent.create import getfilepaths, DAYS_FOLDER
 from inspect import getmembers
 
 class Solution:
@@ -35,7 +35,7 @@ def solution(test: Any = None) -> Callable:
 	return wrapper
 
 def run_solutions(day: int):
-	code = importlib.import_module(f'days.day_{day}.code')
+	code = importlib.import_module(f'{DAYS_FOLDER}.day_{day}.code')
 	for name, solution in getmembers(code, lambda x: isinstance(x, Solution)):
 		print(f"\033[95m{name}\033[0m")
 		solution(getfilepaths(day)["basedir"])

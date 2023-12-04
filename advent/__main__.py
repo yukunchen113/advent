@@ -13,6 +13,8 @@ def main(day: Optional[int] = None, next:bool = False):
 	if day is None:
 		# get latest day
 		day = get_latest_day()+next
+	if not 0 < day <= 25:
+		print(f"Invalid Day {day}")
 	if os.path.exists(getfilepaths(day)["basedir"]):
 		print(f"Running Day {day}")
 		run_solutions(day=day)
