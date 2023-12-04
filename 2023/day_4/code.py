@@ -25,13 +25,12 @@ def pt1(data_file):
     return total
             
 @mark.solution(test=30)
-def pt2_better(data_file):
+def pt2_uniqueness_assumption(data_file):
     data = parse_input(data_file)
-    cards = { i+1:1 for i in range(len(data))}
+    cards = {i+1:1 for i in range(len(data))}
     for idx,line in enumerate(data, 1):
         enums, ynums = line.split(":")[1].split("|")
-        ynums = [num for num in ynums.split() if num in enums.split()]
-        for i in range(len(ynums)):
+        for i in range(len(set(ynums.split()) & set(enums.split()))):
             cards[idx+i+1]+=cards[idx]
     return sum(cards.values())
 
