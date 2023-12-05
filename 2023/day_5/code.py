@@ -7,6 +7,7 @@ import numpy as np
 from advent import mark
 from advent.tools.map import convert_to_complex
 
+
 def parse_input(data_file):
     with open(data_file) as f:
         lines = [i.replace("\n", "") for i in f.readlines()]
@@ -17,16 +18,18 @@ def parse_input(data_file):
         elif ":" in line:
             mapping.append([])
         elif line:
-            mapping[-1].append([int(i) for i in line.split()])    
+            mapping[-1].append([int(i) for i in line.split()])
     return seeds, mapping
 
+
 def get_next_mapping(mapping, seed):
-    for des,sou,ran in mapping:
-        if sou<=seed<(sou+ran):
-            return seed-sou+des
+    for des, sou, ran in mapping:
+        if sou <= seed < (sou + ran):
+            return seed - sou + des
     return seed
 
-#@mark.solution(test=35)
+
+@mark.solution(test=35)
 def pt1(data_file):
     seeds, mappings = parse_input(data_file)
     minitem = float("inf")
@@ -37,23 +40,38 @@ def pt1(data_file):
         minitem = min(minitem, item)
     return minitem
 
-def get_intersects(start, end, mapping):
-    for des,sou,ran in mapping:
-        pass
+
+def get_intersect_ranges(start, end, mapping) -> list[tuple[int, int]]:
+    breakpoints = set([start, end + 1])
+    for _, sou, ran in mapping:
+        if start < sou < end:
+            breakpoints.add(sou)
+        if start < (sou + ran) < end:
+            breakpoints.add(sou + ran)
+    breakpoints = sorted(list(breakpoints))
+    ranges = []
+    for idx, bp in enumerate(breakpoints[:-1]):
+        ranges.append((bp, breakpoints[idx + 1] - 1))
+    return ranges
+
 
 @mark.solution(test=46)
 def pt2(data_file):
     seeds, mappings = parse_input(data_file)
-    seeds = np.cumsum(np.reshape(seeds,(-1,2)), axis=1).tolist()
+    rseeds = np.reshape(seeds, (-1, 2))
+    rseeds[:, 1] -= 1
+    rseeds = np.cumsum(rseeds, axis=1).tolist()  # inclusive range of values
     minitem = float("inf")
-    for ss, es in seeds:
-        items = [ss, es]
-        for mapping in mappings:
-            nitems = [] # add mapping dests for overlapping intervals
-            for si, ei in np.reshape(items,(-1,2)).tolist():
-                nitems += get_intersects(si, ei, mapping)
-            for item in items:
-                nitems.append(get_next_mapping(mapping, item))
-            items = nitems
-            minitem = min(minitem, min(items))
+    ritems = rseeds
+    for mapping in mappings:
+        nitems = []
+        for si, ei in ritems:
+            ranges = get_intersect_ranges(si, ei, mapping)
+            ranges = [
+                (get_next_mapping(mapping, s), get_next_mapping(mapping, e))
+                for s, e in ranges
+            ]
+            nitems += ranges
+        ritems = nitems
+    minitem = min([i for j in ritems for i in j])
     return minitem
