@@ -37,14 +37,23 @@ def pt1(data_file):
         minitem = min(minitem, item)
     return minitem
 
+def get_intersects(start, end, mapping):
+    for des,sou,ran in mapping:
+        pass
+
 @mark.solution(test=46)
 def pt2(data_file):
     seeds, mappings = parse_input(data_file)
     seeds = np.cumsum(np.reshape(seeds,(-1,2)), axis=1).tolist()
     minitem = float("inf")
-    for seed in seeds:
-        item = seed
+    for ss, es in seeds:
+        items = [ss, es]
         for mapping in mappings:
-            item = get_next_mapping(mapping, item)
-        minitem = min(minitem, item)
+            nitems = [] # add mapping dests for overlapping intervals
+            for si, ei in np.reshape(items,(-1,2)).tolist():
+                nitems += get_intersects(si, ei, mapping)
+            for item in items:
+                nitems.append(get_next_mapping(mapping, item))
+            items = nitems
+            minitem = min(minitem, min(items))
     return minitem
