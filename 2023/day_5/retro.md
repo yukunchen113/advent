@@ -1,0 +1,3 @@
+- need better sleep
+- think more programatically - use the input that has the smallest space
+- try to reuse functionality, but don't be married to that idea
