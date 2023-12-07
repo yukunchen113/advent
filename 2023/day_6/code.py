@@ -23,7 +23,7 @@ def pt1(data_file):
 def pt2(data_file):
     data = parse_input(data_file)
     time = int("".join([i for i in re.findall(r"\d+", data[0].split(":")[1])]))
-    dist =int("".join([i for i in re.findall(r"\d+", data[1].split(":")[1])]))
+    dist = int("".join([i for i in re.findall(r"\d+", data[1].split(":")[1])]))
     wins = 0
     for ht in range(1,time+1):
         wins += ht*(time-ht) > dist
