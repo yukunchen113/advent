@@ -68,8 +68,8 @@ def pt1(data_file):
 
 
 @mark.solution(test=6440)
-def efficient_pt1(data_file):
-    order = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
+def pt1_clean(data_file):
+    order = "AKQJT98765432"
     data = parse_input(data_file)
     cards = sorted(
         [tuple(line.split()) for line in data], 
@@ -82,8 +82,8 @@ def efficient_pt1(data_file):
 
 
 @mark.solution(test=5905)
-def efficient_pt2(data_file):
-    order = ["A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2","J"]
+def pt2_clean(data_file):
+    order = "AKQT98765432J"
     def scoring_eff_pt2(card):
         counts = Counter(card[0])
         num_j = counts.pop("J", 0)
