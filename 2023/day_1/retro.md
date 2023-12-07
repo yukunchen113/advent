@@ -1,3 +1,6 @@
+Day       Time  Rank  Score       Time   Rank  Score
+  1   00:05:24  2358      0   00:23:36   2282      0
+
 day 1 retro:
 
 Q1:
