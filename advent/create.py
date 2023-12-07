@@ -44,7 +44,7 @@ def create_day_files(day: int) -> None:
         with open(code, 'w') as f:
             f.write(
                 f"""import os
-from collections import defaultdict
+from collections import defaultdict, Counter
 import regex as re
 from pprint import pprint
 from functools import reduce

@@ -1,11 +1,5 @@
-import os
-from collections import defaultdict
-import regex as re
-from pprint import pprint
-from functools import reduce
-import numpy as np
+from collections import defaultdict, Counter
 from advent import mark
-from advent.tools.map import convert_to_complex
 
 def parse_input(data_file):
     with open(data_file) as f:
@@ -71,3 +65,31 @@ def pt1(data_file):
     cards = sorted(cards, key=scoring_pt1)
     assert len(set(i for i in cards)) == len(cards)
     return sum(b*idx for idx,(_,b) in enumerate(cards,1))
+
+
+@mark.solution(test=6440)
+def efficient_pt1(data_file):
+    order = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
+    data = parse_input(data_file)
+    cards = sorted(
+        [tuple(line.split()) for line in data], 
+        key=lambda card: (
+            tuple(i for _,i in Counter(card[0]).most_common(2)),
+            [-order.index(i) for i in card[0]]
+        )
+    )
+    return sum(int(b)*idx for idx,(_,b) in enumerate(cards,1))
+
+
+@mark.solution(test=5905)
+def efficient_pt2(data_file):
+    order = ["A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2","J"]
+    def scoring_eff_pt2(card):
+        counts = Counter(card[0])
+        num_j = counts.pop("J", 0)
+        counts["J" if not len(counts) else counts.most_common(1)[0][0]]+=num_j
+        return (tuple(i for _,i in counts.most_common(2)), [-order.index(i) for i in card[0]])
+    data = parse_input(data_file)
+    cards = sorted([line.split() for line in data], key=scoring_eff_pt2)
+    return sum(int(b)*idx for idx,(_,b) in enumerate(cards,1))
+
