@@ -70,11 +70,11 @@ def pt1(data_file):
 @mark.solution(test=6440)
 def pt1_clean(data_file):
     order = "AKQJT98765432"
-    data = parse_input(data_file)
+    data = [i.strip() for i in open(data_file).readlines()]
     cards = sorted(
         [tuple(line.split()) for line in data], 
         key=lambda card: (
-            tuple(i for _,i in Counter(card[0]).most_common(2)),
+            tuple(dict(Counter(card[0]).most_common(2)).values()),
             [-order.index(i) for i in card[0]]
         )
     )
@@ -88,8 +88,8 @@ def pt2_clean(data_file):
         counts = Counter(card[0])
         num_j = counts.pop("J", 0)
         counts["J" if not len(counts) else counts.most_common(1)[0][0]]+=num_j
-        return (tuple(i for _,i in counts.most_common(2)), [-order.index(i) for i in card[0]])
-    data = parse_input(data_file)
+        return (tuple(dict(counts.most_common(2)).values()), [-order.index(i) for i in card[0]])
+    data = [i.strip() for i in open(data_file).readlines()]
     cards = sorted([line.split() for line in data], key=scoring_eff_pt2)
     return sum(int(b)*idx for idx,(_,b) in enumerate(cards,1))
 
