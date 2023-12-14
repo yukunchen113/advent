@@ -1,9 +1,3 @@
-import os
-from collections import defaultdict, Counter
-import regex as re
-from pprint import pprint
-from functools import reduce
-import numpy as np
 from advent import mark
 from advent.tools.map import convert_to_complex
 
