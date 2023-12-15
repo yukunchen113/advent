@@ -4,7 +4,9 @@ Personal library for Advent of Code.
 `advent/` contains a library of functionality, and doubles as a callable module.
 
 ## Creating a New Day
-- Dates are created under the base folder defined in advent/create - DAYS_FOLDER
+- By default, dates are created under the base folder defined in advent/create - DAYS_FOLDER
+	- you can specify a specific date with the `--year <year>` command
+		- for example `python -m advent --year 2021` will run the latest AoC date in the 2021 repo
 - to create a new day you can run the following commands:
 	- `python -m advent --day X` where `X` is a int for the AOC day.
 		- a new day is created if it doesn't currently exist

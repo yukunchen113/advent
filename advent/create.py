@@ -3,15 +3,23 @@ from pathlib import Path
 import sys
 import os
 import re
+from typing import Optional
 
 DAYS_FOLDER = "2023"
 
-def get_latest_day():
-    days = [re.findall(r"\d+", i) for i in os.listdir(DAYS_FOLDER)]
+def get_latest_day(year: Optional[str] = None) -> int:
+    if year is None:
+        year = DAYS_FOLDER
+    os.makedirs(year, exist_ok=True)
+    days = [re.findall(r"\d+", i) for i in os.listdir(year)]
+    if not days:
+        return 1
     return sorted([int(day[0]) for day in days if day])[-1]
 
-def getfilepaths(day: int) -> dict[str, str]:
-    basedir = os.path.join(DAYS_FOLDER, f"day_{day}")
+def getfilepaths(day: int, year: Optional[str] = None) -> dict[str, str]:
+    if year is None:
+        year = DAYS_FOLDER
+    basedir = os.path.join(year, f"day_{day}")
     return {
         "basedir": basedir,
         "code": os.path.join(basedir, "code.py"),
@@ -20,8 +28,8 @@ def getfilepaths(day: int) -> dict[str, str]:
         "retro": os.path.join(basedir, "retro.md"),
     }
 
-def create_day_files(day: int) -> None:
-    files = getfilepaths(day)
+def create_day_files(day: int, year: Optional[str] = None) -> None:
+    files = getfilepaths(day, year)
     code = files["code"]
     mdata = files["mdata"]
     tdata = files["tdata"]

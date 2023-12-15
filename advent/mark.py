@@ -2,9 +2,7 @@
 This file contains functionality to mark a particular function to run.
 """
 import os
-from functools import wraps
-from typing import Any, Callable
-from collections import defaultdict
+from typing import Any, Callable, Optional
 import importlib
 from advent.create import getfilepaths, DAYS_FOLDER
 from inspect import getmembers
@@ -35,8 +33,10 @@ def solution(test: Any = None) -> Callable:
 		return Solution(func, test)
 	return wrapper
 
-def run_solutions(day: int):
-	code = importlib.import_module(f'{DAYS_FOLDER}.day_{day}.code')
+def run_solutions(day: int, year: Optional[str] = None):
+	if year is None:
+		year = DAYS_FOLDER
+	code = importlib.import_module(f'{year}.day_{day}.code')
 	for name, solution in getmembers(code, lambda x: isinstance(x, Solution)):
 		print(f"\033[95m{name}\033[0m")
-		solution(getfilepaths(day)["basedir"])
+		solution(getfilepaths(day, year)["basedir"])
