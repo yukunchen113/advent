@@ -1,5 +1,6 @@
 from collections import defaultdict
 from advent import mark
+import regex as re
 
 @mark.solution(test=1320)
 def pt1(data_file):
@@ -34,3 +35,15 @@ def pt2(data_file):
         for slot, (_, fl) in enumerate(box.items(),1):
             total+=(nbox+1)*slot*int(fl)
     return total
+
+@mark.solution(test=145)
+def concise_pt2(data_file):
+    st = defaultdict(dict)
+    for seq in [i.replace("\n", "") for i in open(data_file).readlines()][0].split(","):
+        lab,op,fl = re.findall(r"([^-=]+)(=)?(\d+)?", seq)[0]
+        nbox = get_hash(lab)
+        if op:
+            st[nbox][lab] = int(fl)
+        else:
+            st[nbox].pop(lab, None)
+    return sum((n+1)*s*f for n,b in st.items() for s,f in enumerate(b.values(),1))
