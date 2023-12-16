@@ -1,0 +1,8 @@
+- overall, not too bad,
+- took the naive approach for finding the new direction(s)
+	- question is, where to center the logic around?
+		- output? or symbol?
+		- I went output centric since I assumed it would take less conditionals
+		- however since the symbol contained rules on how the reflections happened, that would've been the correct choice intuitively.
+			- I guess if it feels like there is intuitively a pattern, it would be valuable to explore it
+			- though exploring unknown patterns might take more time than actually coding in the values, it would be useful to train up this skill so that in the future, it should come more naturally
