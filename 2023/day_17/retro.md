@@ -1,0 +1,4 @@
+- too many smaller mistakes
+	- caused by shifting of index of code vs what question asked.
+- inefficient code - revisit multiple paths unnecessarily
+	- need to practice DP - specifically backtracking

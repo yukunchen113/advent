@@ -1,0 +1,2 @@
+- how to check which assumptions broke
+	- loop assumptions broke, so check the loop
