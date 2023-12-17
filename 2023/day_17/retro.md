@@ -2,3 +2,6 @@
 	- caused by shifting of index of code vs what question asked.
 - inefficient code - revisit multiple paths unnecessarily
 	- need to practice DP - specifically backtracking
+	- the best way forward was actually to heappop the node with min cost
+		- this could've been noticed with the `seen and cost > seen[(pos, dir, step)]` line
+		- though this will speed it up a bit, a previously seen path could still be bypassed 

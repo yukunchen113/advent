@@ -1,11 +1,5 @@
-import os
-from collections import defaultdict, Counter
-import regex as re
-from pprint import pprint
-from functools import reduce, cache
-import numpy as np
 from advent import mark
-from advent.tools.map import convert_to_complex 
+from advent.tools.map import convert_to_complex
 
 @mark.solution(test=102)
 def pt1(data_file):
@@ -17,7 +11,7 @@ def pt1(data_file):
     min_cost = float("inf")
     while nodes:
         nnodes = []
-        for pos,dir,step,cost in nodes:
+        for pos,dir,step,cost in sorted(nodes, key=lambda x: x[-1]):
             if pos not in data or step > 2:
                 continue
             if (pos, dir, step) in seen and cost >= seen[(pos, dir, step)]:
@@ -44,7 +38,7 @@ def pt2(data_file):
     min_cost = float("inf")
     while nodes:
         nnodes = []
-        for pos,dir,step,cost in nodes:
+        for pos,dir,step,cost in sorted(nodes, key=lambda x: x[-1]):
             if pos not in data or step > 9:
                 continue
             if (pos, dir, step) in seen and cost >= seen[(pos, dir, step)]:
