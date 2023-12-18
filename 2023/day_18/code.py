@@ -42,8 +42,7 @@ def combined(ints1, ints2):
 @mark.solution(test=952408144115)
 def pt2(data_file):
     data = [i.strip() for i in open(data_file).readlines()]
-    inst_map = {"0":1j,"1":1,"2":-1j,"3":-1,
-                "R":1j,"D":1,"L":-1j,"U":-1}
+    inst_map = {"0":1j,"1":1,"2":-1j,"3":-1}
     # get horzontal lines
     hlines = defaultdict(list)
     pos = 0
@@ -51,12 +50,11 @@ def pt2(data_file):
         line = line.split()[-1][2:-1]
         units, inst = line[:-1], line[-1]
         npos = pos+inst_map[inst]*int(units, 16)
-        if inst in "02RL":
+        if inst in "02":
             hlines[pos.real].append(sorted([pos.imag, npos.imag]))
         pos = npos
     lasth = []
-    total = 0
-    prev_k = 0
+    prev_k = total = 0
     for k in sorted(hlines.keys()):
         nlasth = []
         for s,e in lasth:
@@ -64,17 +62,12 @@ def pt2(data_file):
         for s,e in sorted(lasth+hlines[k]):
             if nlasth and nlasth[-1][1] >= s:
                 if nlasth[-1][1] > s:
-                    lint = nlasth.pop()
-                    nlasth += [sorted([a,b]) for a,b in zip([s,e],lint) if a != b]
+                    nlasth += [sorted([a,b]) for a,b in zip([s,e],nlasth.pop()) if a != b]
                 else:
                     nlasth[-1][1] = e
             else:
                 nlasth.append([s,e])
-                
-        diff = 0
-        for s,e in combined(lasth,nlasth):
-            diff+=e+1-s
-        total+=diff
-        prev_k = k
-        lasth = nlasth
+        for s,e in combined(lasth,nlasth): 
+            total+=e+1-s
+        prev_k, lasth = k, nlasth
     return int(total)

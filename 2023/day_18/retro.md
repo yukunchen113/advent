@@ -1,0 +1,4 @@
+- this was not great
+- error due to not taking away the conversion to base 16 for pt2 when testing on pt1 input.
+- in the future, if stuck, take a step back, run through solution fully, step by step even through parts that might seem correct
+- also do more drawing for diagrams.
