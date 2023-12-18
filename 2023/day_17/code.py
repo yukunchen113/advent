@@ -42,7 +42,7 @@ def pt2(data_file):
             if pos not in data or step > 9:
                 continue
             if (pos, dir, step) in seen and cost >= seen[(pos, dir, step)]:
-                 continue
+                continue
             if pos == end:
                 min_cost = min(min_cost, cost + int(data[pos]))
                 continue
