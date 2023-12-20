@@ -1,0 +1,5 @@
+- question not bad overall
+- found it hard to understand the actual description of the question
+	- in an interview setting, clarify question
+	- in a comp setting, vigorously use print statements
+- 
