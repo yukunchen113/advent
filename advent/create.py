@@ -3,9 +3,27 @@ from pathlib import Path
 import sys
 import os
 import re
+from datetime import datetime
 from typing import Optional
+from dateutil.tz import gettz
+import subprocess
+from advent_secrets import USERAGENT, SESSION
 
 DAYS_FOLDER = "2023"
+
+def pull_data(day:int, year: Optional[str] = None):
+    # if already pulled or date hasn't started, pull
+    if year is None:
+        year = DAYS_FOLDER
+    fpaths = getfilepaths(day, year)
+    if datetime.now(tz=gettz("America/New_York")) < datetime(int(year),12,day,0,0,0,0, tzinfo=gettz("America/New_York")):
+        return
+    if os.stat(fpaths["mdata"]).st_size > 0:
+        return
+    cmd = f'curl https://adventofcode.com/{year}/day/{day}/input --cookie "session={SESSION}" -A \'{USERAGENT}\''
+    output = subprocess.check_output(cmd, shell=True)
+    with open(fpaths["mdata"], "w") as file:
+        file.write(output.decode('utf-8'))
 
 def get_latest_day(year: Optional[str] = None) -> int:
     if year is None:

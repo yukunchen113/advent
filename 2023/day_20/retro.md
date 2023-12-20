@@ -2,4 +2,6 @@
 - found it hard to understand the actual description of the question
 	- in an interview setting, clarify question
 	- in a comp setting, vigorously use print statements
-- 
+- jonathan paulson copies the parts of text that are instructions
+	- eg. what describes a flip flip/ conjugation
+	- and then he pastes the text into the code file so that the logic can be focused on and reviewed when writing.
