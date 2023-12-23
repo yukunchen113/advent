@@ -64,8 +64,8 @@ def pt2(data_file):
     nodes = [i for i,v in data.items() if v == "S"]
     
     pattern = defaultdict(list)
-    prev_nv = 1
-    prev_diff = 1
+    prev_nv = [1,1]
+    prev_diff = [1,1]
     unique_boards = set()
     for level in range(26501365+1):
         nnodes = set()
@@ -80,14 +80,14 @@ def pt2(data_file):
                 nnodes.add(node-1)
                 nnodes.add(node-1j)
         nodes = nnodes
-        diff = num_vals-prev_nv
-        # print(diff/prev_diff)
+        diff = num_vals-prev_nv[level%2]
+        if level%2:
+            print(num_vals)
         # if diff/prev_diff in pattern:
         #     print(pattern[diff/prev_diff], level)
         # pattern[diff/prev_diff].append(level)
-        print(diff)
-        prev_nv = num_vals
-        prev_diff = diff or 1
+        prev_nv[level%2] = num_vals
+        prev_diff[level%2] = diff or 1
     # return num_vals
 
 # @mark.solution(test=1591)

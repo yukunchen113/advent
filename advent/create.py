@@ -29,10 +29,11 @@ def get_latest_day(year: Optional[str] = None) -> int:
     if year is None:
         year = DAYS_FOLDER
     os.makedirs(year, exist_ok=True)
-    days = [re.findall(r"\d+", i) for i in os.listdir(year)]
+    days = [re.findall(r"day_(\d+)", i) for i in os.listdir(year)]
+    days = [int(day[0]) for day in days if day]
     if not days:
         return 1
-    return sorted([int(day[0]) for day in days if day])[-1]
+    return max(days)
 
 def getfilepaths(day: int, year: Optional[str] = None) -> dict[str, str]:
     if year is None:

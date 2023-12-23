@@ -56,7 +56,7 @@ def pt2(data_file):
                 support[bnum].add(pblocks[point])
             cpoints[point] = maxz + zlen
             pblocks[point] = bnum
-    
+
     total = 0
     for i in range(len(bricks)):
         csups = copy.deepcopy(support)
