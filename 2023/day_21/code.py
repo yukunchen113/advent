@@ -56,7 +56,7 @@ def pt2(data_file):
     print(num_vals)
     #return num_vals
     
-@mark.solution(test=1591)
+# @mark.solution(test=1591)
 def pt2(data_file):
     data = [i.strip() for i in open(data_file).readlines()]
     bound = complex(len(data), len(data[-1]))
@@ -109,3 +109,37 @@ def pt2_dumb(data_file):
         nodes = nnodes
         print(level, num_vals)
     # return num_vals
+    
+@mark.solution(test=None)
+def pt2(data_file):
+    data = [i.strip() for i in open(data_file).readlines()]
+    bound = complex(len(data), len(data[-1]))
+    data = convert_to_complex(data)
+    nodes = [i for i,v in data.items() if v == "S"]
+    vals = []
+    final_step = 26501365
+    inc = 131 # x increment
+    initial_val = 65
+    for level in range(final_step+1):
+        nnodes = set()
+        num_vals = 0
+        for node in nodes:
+            if data[complex(node.real%bound.real, node.imag%bound.imag)] != "#":
+                num_vals += 1
+                nnodes.add(node+1j)
+                nnodes.add(node+1)
+                nnodes.add(node-1)
+                nnodes.add(node-1j)
+        nodes = nnodes
+
+        if level == initial_val:
+            vals.append(num_vals)
+        if level == (initial_val+inc):
+            vals.append(num_vals)
+        if level == (initial_val+inc*2):
+            vals.append(num_vals)
+            break
+
+    a,b,c = np.round(np.polyfit([0,1,2], vals, 2))
+    x = (final_step-initial_val)/inc
+    return int(a*x**2 + b*x + c)
