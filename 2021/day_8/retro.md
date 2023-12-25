@@ -1,0 +1,3 @@
+- poor performance
+	- should've broken down the problem better
+	- keep splitting into 2 rather than one general if statement.
