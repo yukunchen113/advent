@@ -15,7 +15,9 @@ class Solution:
 		if self.test is not None:
 			tout = self.func(os.path.join(basepath, 'data.t'))
 			if tout is None: return
-			assert tout == self.test, tout
+			if tout != self.test:
+				print(f"Wrong Test Answer: {tout}")
+				exit()
 			print("Test Success")
 		mout = self.func(os.path.join(basepath, 'data.m'))
 		print("main: ", mout)
